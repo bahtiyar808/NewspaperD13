@@ -1,0 +1,16 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<h1>{{ posts.heading.capitalize|censor }}</h1>
+<h2>Дата публикации:
+    {{ posts.date_time|date:'d.m.Y' }}</h2>
+<h3> {{ posts.text.capitalize|censor }} </h3>
+
+{% endblock content %}
