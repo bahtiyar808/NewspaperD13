@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from newsapp.views import subscriptions
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("allauth.urls")),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('newspaper/', include('newsapp.urls')),
-
+    path('subscriptions/', subscriptions, name='subscriptions'),
 ]

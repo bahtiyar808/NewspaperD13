@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
-from datetime import datetime, timezone
+
 
 from django.db import models
 from django.db.models import Sum
 from django.urls import reverse
-from django.template.defaultfilters import truncatewords
+
+from django.core.cache import cache
 
 
 class Author(models.Model):
@@ -27,9 +28,13 @@ class Author(models.Model):
         self.user_rate = result_sum_rating * 3 + result_sum_comment_rating
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, through='Subscriber', related_name='categories')
 
     def __str__(self):
         return self.category_name
@@ -48,6 +53,10 @@ class Post(models.Model):
     choice = models.CharField(max_length=1, choices=Article_or_News, default='N')
     categories = models.ManyToManyField(Category, through='PostCategory')
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'news-{self.pk}')
+
     def __str__(self):
         return f'{self.heading.title()}: {self.text[:20]}'
 
@@ -64,6 +73,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('news_detail', args=[str(self.id)])
+
 
 
 class PostCategory(models.Model):
@@ -86,4 +96,15 @@ class Comment(models.Model):
         self.comment_rate -= 1
         self.save()
 
-# Create your models here.
+
+class Subscriber(models.Model):
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )
+    category = models.ForeignKey(
+        to='Category',
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )

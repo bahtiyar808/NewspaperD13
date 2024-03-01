@@ -10,5 +10,5 @@ def censor(sentence):
     text = sentence.split()
     for i, word in enumerate(text):
         if word in bad_words:
-            text[i] = word[0] + '***'
+            text[i] = word[0] + '*'*(len(word)-2) + word[-1]
     return ' '.join(text)

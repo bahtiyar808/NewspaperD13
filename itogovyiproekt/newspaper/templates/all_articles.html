@@ -12,13 +12,18 @@ Post
 
  <h3>{{ page_obj.paginator.count }}</h3>
    <hr>
-
+{% if perms.newsapp.add_post %}
+<a href="../articles/create">Создать статью</a>
+{% endif %}
 
        <table>
            <tr>
                <td> Заголовок</td>
                <td>Дата публикации</td>
                <td>Текст</td>
+               {% if perms.newsapp.change_post %}
+               <td>Действие</td>
+               {% endif %}
 
            </tr>
 
@@ -28,7 +33,9 @@ Post
                <td> {{post.heading|censor}} </td>
                <td> {{post.date_time|date:'d.m.Y'}} </td>
                <td> {{post.text|truncatewords:20|censor}} </td>
-
+               {% if perms.newsapp.change_post %}
+               <td><a href="../articles/{{post.id}}/edit">Изменить</a></td>
+               {% endif %}
            </tr>
            {% endif %}
            {% endfor %}
