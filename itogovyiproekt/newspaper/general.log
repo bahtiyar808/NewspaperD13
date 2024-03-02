@@ -1,0 +1,9 @@
+2024-03-02 15:16:54,321 INFO autoreload Watching for file changes with StatReloader
+2024-03-02 15:37:50,293 INFO autoreload Watching for file changes with StatReloader
+2024-03-02 15:43:34,228 INFO autoreload D:\itogovyiproekt\newspaper\newspaper\settings.py changed, reloading.
+2024-03-02 15:43:35,006 INFO autoreload Watching for file changes with StatReloader
+2024-03-02 15:43:37,510 INFO basehttp "GET /newspaper/news/ HTTP/1.1" 200 3038
+2024-03-02 15:43:52,620 INFO autoreload D:\itogovyiproekt\newspaper\newspaper\settings.py changed, reloading.
+2024-03-02 15:43:53,415 INFO autoreload Watching for file changes with StatReloader
+2024-03-02 15:44:19,015 INFO autoreload D:\itogovyiproekt\newspaper\newspaper\settings.py changed, reloading.
+2024-03-02 15:44:19,731 INFO autoreload Watching for file changes with StatReloader
